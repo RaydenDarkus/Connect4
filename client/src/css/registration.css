@@ -1,0 +1,80 @@
+.form-container {
+    width: 30%;
+    border: 8px solid #ccc;
+}
+
+.input-text {
+    margin-bottom: 5px;
+}
+
+.btn-hover-shadow {
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.hyperlinks {
+    text-decoration: none;
+}
+
+.hyperlinks:hover {
+    text-decoration: underline;
+}
+
+.home-link {
+    border: 2px solid red;
+}
+  
+.btn-hover-shadow:hover {
+    background-color: #0047ab; /* New hover color */
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3); /* New box-shadow on hover */
+    transform: translateY(-2px); /* Move element 2px up */
+    border: 2px solid #c0cde0;
+}
+
+.input-text {
+    position: relative;
+}
+
+.password-input-container {
+    position: relative;
+}
+
+.eye-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.eye-icon:hover {
+    color: #df1920;
+}
+
+input.form-control {
+    padding-right: 30px; /* Adjust this value based on the icon size */
+}
+  
+@media screen and (max-width: 1440px) and (min-width:1024px) {
+    .form-container {
+        width: 35%;
+    }
+}
+
+@media screen and (max-width: 1023px) and (min-width:769px) {
+    .form-container {
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: 768px) and (min-width: 425px) {
+    .form-container {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 424px) and (min-width: 320px) {
+    .form-container {
+        width: 80%;
+    }
+}

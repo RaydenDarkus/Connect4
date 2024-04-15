@@ -1,0 +1,65 @@
+.home {
+    height: 100vh;
+    display: flex; /* Enable Flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.inside-home {
+    background-color: white;
+    display: flex;
+    justify-content: flex-start; /* Align items at the start (top) */
+    flex-direction: column; /* Arrange items vertically */  
+    align-items: center;
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+@media screen and (max-width: 1440px) and (min-width:1024px) {
+    .inside-home {
+        width: 400px;
+        height: 300px;
+    }
+}
+
+.connect-4-heading {
+   margin-top: 30px;
+   font-family: fantasy;
+}
+
+.text {
+    margin-top: 20px;
+    font-size: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+
+.button-container {
+    margin-top: 50px;
+    flex-direction: row;
+}
+
+.btn-hover-shadow {
+    border: 2px solid #d74510;
+    margin: 10px;
+}
+
+.btn-hover-shadow:hover {
+    background-color: #0047ab; /* New hover color */
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3); /* New box-shadow on hover */
+    transform: translateY(-2px); /* Move element 2px up */
+    border: 2px solid #c0cde0;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
+  }
+  
+.btn-blink {
+    animation: blink 1s infinite; /* Adjust animation duration and other properties as needed */
+}
+  

@@ -1,0 +1,42 @@
+.dropzone {
+    height: calc(var(--size) * 1.5);
+}
+
+.dropzone div {
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.dropzone .p1 {
+    background-color: var(--p1);
+}
+
+.dropzone .p2 {
+    background-color: var(--p2);
+}
+
+.dropzone .active {transition: all ease-in-out 500ms;}
+
+.dropzone .active.column-0 {margin-left: 0px;}
+.dropzone .active.column-1 {margin-left: 100px;}
+.dropzone .active.column-2 {margin-left: 200px;}
+.dropzone .active.column-3 {margin-left: 300px;}
+.dropzone .active.column-4 {margin-left: 400px;}
+.dropzone .active.column-5 {margin-left: 500px;}
+.dropzone .active.column-6 {margin-left: 600px;}
+
+.dropzone .active.row-0 {transform: translateY(150px);}
+.dropzone .active.row-1 {transform: translateY(250px);}
+.dropzone .active.row-2 {transform: translateY(350px);}
+.dropzone .active.row-3 {transform: translateY(450px);}
+.dropzone .active.row-4 {transform: translateY(550px);}
+.dropzone .active.row-5 {transform: translateY(650px);}
+
+.dropzone .active.column--.row--{transition: none;}
+
+.dropzone p {
+    display: grid;
+    place-content: center;
+}
