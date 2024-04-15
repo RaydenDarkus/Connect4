@@ -1,0 +1,10 @@
+Backend: 
+npm i cors nodemon cookie-parser express mongoose dotenv jsonwebtoken
+
+Frontend: 
+npm i axios react-router-dom 
+npm i react-bootstrap bootstrap
+npm i @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome
+npm install react-toastify
+npm install react-hot-toast
+
