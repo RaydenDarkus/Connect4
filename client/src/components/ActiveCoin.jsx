@@ -53,6 +53,4 @@ ActiveCoin.propTypes = {
     dropped: PropTypes.any.isRequired, // Adjust the type according to your needs
     setDropped: PropTypes.func.isRequired, // Ensure setDropped is a function and is required
     setTurn: PropTypes.func.isRequired, // Ensure setTurn is a function and is required
-    scorePosition: PropTypes.func.isRequired, // Ensure scorePostion is a function and is required
-    winner: PropTypes.number.isRequired // Ensure winner is a number and is required
 }
