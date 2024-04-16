@@ -1,6 +1,6 @@
 import './dropzone.css'
 import { useEffect, useState } from 'react'
-import { size, row, col } from '../../constants/constants'
+import { size, rows, columns } from '../../constants/constants'
 import ActiveCoin from '../ActiveCoin'
 import Winner from '../Winner'
 
@@ -16,51 +16,33 @@ export default function DropZone() {
         setWinner(0)
     }
 
-    const findWinner = () => {
-        const p1 = dropped.filter(d => d.player === 1)
-        p1.forEach(({x, y}) => {
-            if (p1.find(m => x === m.x + 1 && y === m.y) &&
-                p1.find(m => x === m.x + 2 && y === m.y) &&
-                p1.find(m => x === m.x + 3 && y === m.y))
-                    setWinner(1)
-            if (p1.find(m => x === m.x && y === m.y + 1) &&
-                p1.find(m => x === m.x && y === m.y + 2) &&
-                p1.find(m => x === m.x && y === m.y + 3))
-                    setWinner(1)
-            if (p1.find(m => x === m.x + 1 && y === m.y + 1) &&
-                p1.find(m => x === m.x + 2 && y === m.y + 2) &&
-                p1.find(m => x === m.x + 3 && y === m.y + 3))
-                    setWinner(1)
-            if (p1.find(m => x === m.x + 1 && y === m.y - 1) &&
-                p1.find(m => x === m.x + 2 && y === m.y - 2) &&
-                p1.find(m => x === m.x + 3 && y === m.y - 3))
-                    setWinner(1)
-        })
+    const checkWin = (player, x, y, dx, dy) => {
+        for (let i = 0; i < 4; i++) {
+            const newX = x + i * dx
+            const newY = y + i * dy
+            if (!dropped.find(m => m.x === newX && m.y === newY && m.player === player)) {
+                return false
+            }
+        }
+        return true
+    }
 
-        const p2 = dropped.filter(d => d.player === 2)
-        p2.forEach(({x, y}) => {
-            if (p2.find(m => x === m.x + 1 && y === m.y) &&
-                p2.find(m => x === m.x + 2 && y === m.y) &&
-                p2.find(m => x === m.x + 3 && y === m.y))
-                    setWinner(2)
-            if (p2.find(m => x === m.x && y === m.y + 1) &&
-                p2.find(m => x === m.x && y === m.y + 2) &&
-                p2.find(m => x === m.x && y === m.y + 3))
-                    setWinner(2)
-            if (p2.find(m => x === m.x + 1 && y === m.y + 1) &&
-                p2.find(m => x === m.x + 2 && y === m.y + 2) &&
-                p2.find(m => x === m.x + 3 && y === m.y + 3))
-                    setWinner(2)
-            if (p2.find(m => x === m.x + 1 && y === m.y - 1) &&
-                p2.find(m => x === m.x + 2 && y === m.y - 2) &&
-                p2.find(m => x === m.x + 3 && y === m.y - 3))
-                    setWinner(2)
-        })
+    const findWinner = () => {
+        const directions = [
+            [1, 0], [0, 1], [1, 1], [1, -1]
+        ]
+        for (const [dx, dy] of directions) {
+            for (const drop of dropped) {
+                const { player, x, y } = drop
+                if (checkWin(player, x, y, dx, dy))
+                    setWinner(player)
+            }
+        }
+        if (dropped.length === rows * columns) 
+            setWinner(-1)
     }
 
     useEffect(() => {
-        if(dropped.length === row * col)
-            setWinner(-1)
         findWinner()
     }, [dropped.length])
 

@@ -29,6 +29,7 @@ export default function Dashboard() {
             <>
                 {!!user && <h2>Welcome {user.username}</h2>}
             </>
+            <h1>Connect 4</h1>
             
             <DropZone/>
             <Board/>

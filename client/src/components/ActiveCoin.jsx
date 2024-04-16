@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 
 export default function ActiveCoin({turn, dropped, setDropped, setTurn}) {
 
-    const [column, setColumn] = useState(6)
-    const [row, setRow] = useState(0)
+    const [column, setColumn] = useState()
+    const [row, setRow] = useState()
 
     const handleKeyDown = (e) => {
         if(e.keyCode  === 37 && column > 0) 
@@ -40,7 +40,6 @@ export default function ActiveCoin({turn, dropped, setDropped, setTurn}) {
 
     useEffect(() => {
         document.addEventListener('keyup', handleKeyDown, false)
-
         return () => document.removeEventListener('keyup', handleKeyDown, false)
     })
 
@@ -54,4 +53,6 @@ ActiveCoin.propTypes = {
     dropped: PropTypes.any.isRequired, // Adjust the type according to your needs
     setDropped: PropTypes.func.isRequired, // Ensure setDropped is a function and is required
     setTurn: PropTypes.func.isRequired, // Ensure setTurn is a function and is required
-};
+    scorePosition: PropTypes.func.isRequired, // Ensure scorePostion is a function and is required
+    winner: PropTypes.number.isRequired // Ensure winner is a number and is required
+}
