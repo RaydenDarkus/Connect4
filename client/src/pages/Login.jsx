@@ -11,10 +11,10 @@ import toast from 'react-hot-toast'
 function Login() {
 
     const navigate = useNavigate()
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false)
 
     const handletogglePasswordVisibility = () => {
-        togglePasswordVisibility(showPassword, setShowPassword);
+        togglePasswordVisibility(showPassword, setShowPassword)
     };
 
     const loginUser = async (e) => { 

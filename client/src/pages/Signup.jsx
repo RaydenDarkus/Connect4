@@ -12,10 +12,10 @@ function Signup() {
 
     const navigate = useNavigate()
     
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false)
 
     const handletogglePasswordVisibility = () => {
-        togglePasswordVisibility(showPassword, setShowPassword);
+        togglePasswordVisibility(showPassword, setShowPassword)
     };
 
     const registerUser = async (e) => {

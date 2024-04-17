@@ -118,10 +118,30 @@ const getProfile = (req, res) => {
 const logoutUser = (req, res) => {
     // Clear the JWT token cookie
     res.clearCookie('token')
-
     // Respond with a JSON message indicating successful logout
     res.json({ message: 'Logout successful' })
-};
+}
+
+const deleteAccount = async (req, res) => {
+    try {
+        const userId  = req.body.id // Assuming userId is sent in the request body
+        if (!userId) {
+            console.log('User ID not provided')
+            return res.status(400).json({ error: 'User ID not provided' })
+        }
+        const deletedUser = await User.findByIdAndDelete(userId)
+        if (!deletedUser) {
+            return res.status(404).json({ error: 'User not found' })
+        }
+        res.clearCookie('token')
+        res.json({ message: 'Account deleted successfully' })
+
+    } catch (error) {
+        console.error('Delete account error:', error);
+        res.status(500).json({ error: 'Internal server error' })
+    }
+}
+
 
 // Forgot password
 const forgotPassword = async (req, res) => {
@@ -145,5 +165,6 @@ module.exports = {
     loginUser,
     getProfile,
     logoutUser,
-    forgotPassword
-};
+    deleteAccount,
+    forgotPassword,
+}

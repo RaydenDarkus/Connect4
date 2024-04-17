@@ -1,4 +1,4 @@
-import {useState, useContext, useEffect} from 'react'
+import {useState, useContext} from 'react'
 import axios from 'axios'
 import {UserContext} from '../context/userContext'
 import {useNavigate} from 'react-router-dom'
@@ -14,7 +14,9 @@ export default function Dashboard() {
 
     const handleLogout = async () => {
         try {
-            await axios.post('/logout') // Make a POST request to the logout route
+            const userId = user._id
+            console.log(userId)
+            await axios.post('/logout', {userId}) // Make a POST request to the logout route
             setUser(null) // Clear the user context after logout
             toast.success('Logged out successfully')
             navigate('/') // Navigate to the home or login page after logout
@@ -24,18 +26,19 @@ export default function Dashboard() {
     }
 
     const handleShowRulesModal = () => {
-    setShowRulesModal(true)
+        setShowRulesModal(true)
     }
 
     const handleCloseRulesModal = () => {
-    setShowRulesModal(false)
+        setShowRulesModal(false)
     }
 
-    const DeleteAccount = async () =>{
+    const deleteAccount = async (id) => {
         try {
-            // setUser(null)
-            // toast.success('Account deleted successfully')
-            // navigate('/')
+            await axios.post('/deleteaccount', {id: id})
+            setUser(null)
+            toast.success('Account deleted successfully')
+            navigate('/')
         }
         catch (error) {
             console.log(error)
@@ -57,9 +60,9 @@ export default function Dashboard() {
                     <button className="logout-btn" onClick={handleLogout}>
                         Logout
                     </button>
-                    <button className="logout-btn" onClick={DeleteAccount}>
+                    {!!user && <button className="logout-btn" onClick={() => deleteAccount(user.id)}>
                         Delete User
-                    </button>
+                    </button>}
                     <button className="logout-btn" onClick={handleShowRulesModal}>
                         Game Rules
                     </button>
@@ -72,14 +75,14 @@ export default function Dashboard() {
                     &times;
                     </span>
                     <h2>Game Rules</h2>
-                    <p>
-                    Here are the rules for the game:
-                    <ul>
-                        <li>Use left and right arrows to move the drop coin</li>
-                        <li>Use Enter or Space Button to drop the coin</li>
-                        <li>Connect 4 coins horizontally, vertically or diagonally for a player to win</li>
-                    </ul>
-                    </p>
+                    <div>
+                        Here are the rules for the game:
+                        <ul>
+                            <li>Use left and right arrows to move the drop coin</li>
+                            <li>Use Enter or Space Button to drop the coin</li>
+                            <li>Connect 4 coins horizontally, vertically or diagonally for a player to win</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 

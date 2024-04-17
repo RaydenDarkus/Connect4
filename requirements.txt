@@ -1,5 +1,7 @@
 react18
 mongoDB Compass
+node.js 18.16.1
+npm 9.5.1
 
 Backend: 
 npm i cors nodemon cookie-parser express mongoose dotenv jsonwebtoken nodemailer

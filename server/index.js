@@ -1,7 +1,7 @@
-const express  = require('express');
-const dotenv = require('dotenv').config();
-const cors = require('cors');
-const mongoose = require('mongoose');
+const express  = require('express')
+const dotenv = require('dotenv').config()
+const cors = require('cors')
+const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 
 //database connection
@@ -18,5 +18,5 @@ app.use(express.urlencoded({extended: false}))
 
 app.use('/', require('./routes/authRoutes'))
 
-const port = 8000;
+const port = 8000
 app.listen(port, () => console.log(`Server is running on port ${port}`))

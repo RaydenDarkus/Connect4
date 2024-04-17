@@ -21,4 +21,4 @@ export const UserContextProvider = ({children}) => {
 // PropTypes validation for children prop
 UserContextProvider.propTypes = {
     children: PropTypes.node.isRequired,
-};
+}
