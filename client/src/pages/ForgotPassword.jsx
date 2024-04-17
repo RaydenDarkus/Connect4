@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
-import './css/registration.css'
+import '../css/registration.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'

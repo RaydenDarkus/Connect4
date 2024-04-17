@@ -1,9 +1,9 @@
-const User = require('../models/user');
-const { generateSalt, hashPassword, verifyPassword } = require('../helpers/auth');
-const jwt = require('jsonwebtoken');
+const User = require('../models/user')
+const { generateSalt, hashPassword, verifyPassword } = require('../helpers/auth')
+const jwt = require('jsonwebtoken')
 
 const test = (req, res) => {
-    res.json('test is working');
+    res.json('test is working')
 }
 
 // Register a new user
@@ -58,7 +58,7 @@ const registerUser = async (req, res) => {
             password: hashedPassword,
             salt
         })
-        await user.save();
+        await user.save()
         return res.json(user)
     }
 
@@ -117,10 +117,10 @@ const getProfile = (req, res) => {
 // Logout a user
 const logoutUser = (req, res) => {
     // Clear the JWT token cookie
-    res.clearCookie('token');
+    res.clearCookie('token')
 
     // Respond with a JSON message indicating successful logout
-    res.json({ message: 'Logout successful' });
+    res.json({ message: 'Logout successful' })
 };
 
 // Forgot password

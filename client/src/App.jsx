@@ -1,14 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import axios from 'axios'
-import Signup from './Signup'  
-import Login from './Login'  
-import Home from './Home'
-import ForgotPassword from './ForgotPassword'
-import ResetPassword from './ResetPassword'
+import Signup from './pages/Signup'  
+import Login from './pages/Login'  
+import Home from './pages/Home'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 import {Toaster} from 'react-hot-toast'
 import { UserContextProvider } from './context/userContext'
-import Dashboard from './Dashboard'
+import Dashboard from './pages/Dashboard'
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;

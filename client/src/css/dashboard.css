@@ -1,10 +1,133 @@
 :root {
     --size: 100px;
     --p1: #f1bf3a;
-    --p2: #ec0b87;
+    --p2: #f0070b;
+    --text-color: #333;
+    --header-height: 80px;
+    --footer-height: 50px;
 }
-
+  
 .dashboard {
     display: grid;
-    place-content: center;
+    grid-template-rows: var(--header-height) 1fr var(--footer-height);
+    background-color: #D9AFD9;
+    background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);    
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+}
+  
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background-color: var(--p1);
+    color: white;
+    border-bottom: 1px solid black;
+}
+  
+.title {
+    font-size: 24px;
+    font-weight: bold;
+}
+  
+.welcome {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+  
+.content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    justify-items: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+  
+.game-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+  
+.actions-section {
+    display: flex;
+    height: 300px;
+    width: 200px;
+    background-color: #85FFBD;
+    background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
+    border: 1px solid black; 
+    border-radius: 5px;   
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
+    align-items: center;
+}
+  
+.logout-btn {
+    background-color: var(--p2);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+  
+.logout-btn:hover {
+    background-color: #c00409;
+}
+  
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--p1);
+    color: white;
+    font-size: 14px;
+    border-top: 1px solid black;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+.modal.show {
+    display: block;
+}
+  
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+}
+  
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }

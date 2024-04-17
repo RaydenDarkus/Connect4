@@ -2,7 +2,7 @@
 client/node_modules
 server/node_modules
 client/src/assets
-client/src/public/fontawesome-free-6.5.2-web
+client/public/fontawesome-free-6.5.2-web
 client/README.md
 client/package-lock.json
 client/package.json

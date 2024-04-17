@@ -1,5 +1,8 @@
+react18
+mongoDB Compass
+
 Backend: 
-npm i cors nodemon cookie-parser express mongoose dotenv jsonwebtoken
+npm i cors nodemon cookie-parser express mongoose dotenv jsonwebtoken nodemailer
 
 Frontend: 
 npm i axios react-router-dom 

@@ -3,6 +3,7 @@
     grid-template-columns: repeat(7, var(--size));
     grid-template-rows: repeat(6, var(--size));
     position: relative;
+    border: 3px solid black;
 }
 
 .board div {
