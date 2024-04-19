@@ -42,7 +42,7 @@ const generateSalt = () => {
 // Function to hash a password using PBKDF2
 const hashPassword = (password, salt) => {
     return new Promise((resolve, reject) => {
-        resolve(pbkdf2.deriveBytes(salt, password, 200000, 64))
+        resolve(pbkdf2.deriveBytes(salt, password, 100000, 64))
     })
 }
 

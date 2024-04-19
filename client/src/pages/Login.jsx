@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash, faHome } from '@fortawesome/free-solid-svg-icons'
 import toast from 'react-hot-toast'
 
-function Login() {
+export default function Login() {
 
     const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)
@@ -95,5 +95,3 @@ function Login() {
         </>
     )
 }
-
-export default Login

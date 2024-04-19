@@ -10,10 +10,12 @@ export default function Dashboard() {
 
     const { user, setUser } = useContext(UserContext)
     const [showRulesModal, setShowRulesModal] = useState(false)
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
     const navigate = useNavigate()
 
-    const handleLogout = async () => {
+    const handleLogout = async (e) => {
         try {
+            e.preventDefault()
             const userId = user._id
             console.log(userId)
             await axios.post('/logout', {userId}) // Make a POST request to the logout route
@@ -33,6 +35,14 @@ export default function Dashboard() {
         setShowRulesModal(false)
     }
 
+    const handleShowDeleteModal = () => {
+        setShowDeleteModal(true)
+    }
+
+    const handleCloseDeleteModal = () => {
+        setShowDeleteModal(false)
+    }
+
     const deleteAccount = async (id) => {
         try {
             await axios.post('/deleteaccount', {id: id})
@@ -49,7 +59,7 @@ export default function Dashboard() {
         <div className='dashboard'>
             <header className="header">
                 <h1 className="title">Connect 4</h1>
-                {!!user && <h2 className="welcome">Welcome, {user.username}!</h2>}
+                {user && <h2 className="welcome">Welcome, {user?.username}!</h2>}
             </header>
             <main className="content">
                 <section className="game-section">
@@ -57,21 +67,39 @@ export default function Dashboard() {
                 </section>
                 <section className="actions-section">
                     <h2 className="actions-title">Actions</h2>
-                    <button className="logout-btn" onClick={handleLogout}>
+                    <button className="logout-btn" onClick={handleLogout} title='Logout'>
                         Logout
                     </button>
-                    {!!user && <button className="logout-btn" onClick={() => deleteAccount(user.id)}>
+                    <button className="logout-btn" onClick={handleShowDeleteModal} title='Delete Account'>
                         Delete User
-                    </button>}
-                    <button className="logout-btn" onClick={handleShowRulesModal}>
+                    </button>
+                    <button className="logout-btn" onClick={handleShowRulesModal} title='Show Rules'>
                         Game Rules
                     </button>
                 </section>
             </main>
 
+            <div className={`modal ${showDeleteModal ? 'show' :''}`}>
+                <div className="modal-content">
+                    <span className="close-button" onClick={handleCloseDeleteModal}>
+                    &times;
+                    </span>
+                    <h2>Delete Account</h2>
+                    <div>
+                        Are you sure you want to delete your account?
+                    </div>
+                    <div className="button-container">
+                        {!! user && <button className="delete-btn" onClick={() => deleteAccount(user.id)} title='Confirm to Delete'>
+                            Delete
+                        </button>}
+                        <button className="cancel-btn" onClick={handleCloseDeleteModal} title='Cancel'> Cancel </button>
+                    </div>
+                </div>
+            </div>
+
             <div className={`modal ${showRulesModal ? 'show' : ''}`}>
                 <div className="modal-content">
-                    <span className="close-button" onClick={handleCloseRulesModal}>
+                    <span className="close-button" onClick={handleCloseRulesModal} title='Close'>
                     &times;
                     </span>
                     <h2>Game Rules</h2>

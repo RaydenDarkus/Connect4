@@ -13,3 +13,10 @@ npm i @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @forta
 npm install react-toastify
 npm install react-hot-toast
 
+Execution:
+git clone https://github.com/RaydenDarkus/Connect4.git
+Go to terminal
+cd client -> npm run dev
+cd server -> npm start
+
+atry bdnm zlpq lzia

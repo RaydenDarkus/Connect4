@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash, faHome } from '@fortawesome/free-solid-svg-icons'
 import {toast} from 'react-hot-toast'
 
-function Signup() {
+export default function Signup() {
 
     const navigate = useNavigate()
     
@@ -106,5 +106,3 @@ function Signup() {
         </>
     )
 }
-
-export default Signup

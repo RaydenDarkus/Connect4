@@ -13,7 +13,7 @@ class SHA256 {
 	static initialHashes = [
         0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
         0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
-    ]
+    ];
 		
 	/**
      * Computes SHA-256 hash for the given message.
@@ -22,12 +22,34 @@ class SHA256 {
      */
 
     static hash(message) {
+		//preprocessing and block setup
         const messageBlocks = this.preprocess(message);
+		//initial hash values from specification.
         let hashValues = [...this.initialHashes];
 
         messageBlocks.forEach(block => {
             const w = this.scheduleWords(block);
-			this.compressionRound(w, hashValues)
+			let [a, b, c, d, e, f, g, h] = hashValues;
+
+            for (let i = 0; i < 64; i++) {
+                const S1 = this.rotr(e, 6) ^ this.rotr(e, 11) ^ this.rotr(e, 25);
+                const ch = (e & f) ^ (~e & g);
+                const temp1 = (h + S1 + ch + this.k[i] + w[i]) >>> 0;
+                const S0 = this.rotr(a, 2) ^ this.rotr(a, 13) ^ this.rotr(a, 22);
+                const maj = (a & b) ^ (a & c) ^ (b & c);
+                const temp2 = (S0 + maj) >>> 0;
+
+                h = g;
+                g = f;
+                f = e;
+                e = (d + temp1) >>> 0;
+                d = c;
+                c = b;
+                b = a;
+                a = (temp1 + temp2) >>> 0;
+            }
+
+            hashValues = hashValues.map((val, idx) => (val + [a, b, c, d, e, f, g, h][idx]) >>> 0);
             
         });
 
@@ -40,7 +62,7 @@ class SHA256 {
      * @return {Buffer[]} Array of message blocks.
      */
     static preprocess(message) {
-        const buffer = Buffer.isBuffer(message) ? message : Buffer.from(message);
+        const buffer = Buffer.from(message);
         const messageLength = buffer.length * 8;
         const withOne = Buffer.concat([buffer, Buffer.from([0x80])]);
 
@@ -48,10 +70,7 @@ class SHA256 {
         lengthBlock.writeUInt32BE((messageLength / Math.pow(2, 32)) >>> 0, 0);
         lengthBlock.writeUInt32BE(messageLength >>> 0, 4);
 
-        let paddedMessage = Buffer.concat([
-			withOne, 
-			Buffer.alloc(((448 - (messageLength + 1) % 512 + 512) % 512) / 8), lengthBlock
-		]);
+        let paddedMessage = Buffer.concat([withOne, Buffer.alloc(((448 - (messageLength + 1) % 512 + 512) % 512) / 8), lengthBlock]);
 
         const messageBlocks = [];
         for (let i = 0; i < paddedMessage.length / 64; i++) {
@@ -69,50 +88,14 @@ class SHA256 {
     static scheduleWords(block) {
         let w = new Array(64);
         for (let i = 0; i < 16; i++) {
-            w[i] = block.readUInt32BE(i * 4);
-        }
+                w[i] = block.readUInt32BE(i * 4);
+            }
         for (let i = 16; i < 64; i++) {
-            const s0 = SHA256.rotr(w[i - 15], 7) ^ SHA256.rotr(w[i - 15], 18) ^ (w[i - 15] >>> 3);
-            const s1 = SHA256.rotr(w[i - 2], 17) ^ SHA256.rotr(w[i - 2], 19) ^ (w[i - 2] >>> 10);
+            const s0 = this.rotr(w[i - 15], 7) ^ this.rotr(w[i - 15], 18) ^ (w[i - 15] >>> 3);
+            const s1 = this.rotr(w[i - 2], 17) ^ this.rotr(w[i - 2], 19) ^ (w[i - 2] >>> 10);
             w[i] = (w[i - 16] + s0 + w[i - 7] + s1) >>> 0;
         }
         return w;
-    }
-	
-	/**
-     * Perform the main compression round of SHA-256.
-     * @param {number[]} words - Scheduled words for this block.
-     * @param {number[]} hashValues - Current hash values.
-     */
-    static compressionRound(words, hashValues) {
-        let [a, b, c, d, e, f, g, h] = hashValues;
-
-        for (let i = 0; i < 64; i++) {
-            const S1 = SHA256.rotr(e, 6) ^ SHA256.rotr(e, 11) ^ SHA256.rotr(e, 25);
-            const ch = (e & f) ^ (~e & g);
-            const temp1 = (h + S1 + ch + this.k[i] + words[i]) >>> 0;
-            const S0 = SHA256.rotr(a, 2) ^ SHA256.rotr(a, 13) ^ SHA256.rotr(a, 22);
-            const maj = (a & b) ^ (a & c) ^ (b & c);
-            const temp2 = (S0 + maj) >>> 0;
-
-            h = g;
-            g = f;
-            f = e;
-            e = (d + temp1) >>> 0;
-            d = c;
-            c = b;
-            b = a;
-            a = (temp1 + temp2) >>> 0;
-        }
-
-        hashValues[0] += a;
-        hashValues[1] += b;
-        hashValues[2] += c;
-        hashValues[3] += d;
-        hashValues[4] += e;
-        hashValues[5] += f;
-        hashValues[6] += g;
-        hashValues[7] += h;
     }
 
     /**
@@ -125,5 +108,4 @@ class SHA256 {
         return (x >>> n) | (x << (32 - n));
     }
 }
-
 module.exports = SHA256;

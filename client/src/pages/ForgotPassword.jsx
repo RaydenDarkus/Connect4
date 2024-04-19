@@ -7,12 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import {toast} from 'react-hot-toast'
 
-function Signup() {
+export default function ForgotPassword() {
 
     const navigate = useNavigate()
 
     const forgotPassword = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         const {username, email} = data
         try {
             const {data} = await axios.post('/forgotpassword', {
@@ -25,7 +25,7 @@ function Signup() {
             else {
                 setData({})
                 toast.success('Check your registered email for password recovery link')
-                navigate('/Login')
+                navigate('/')
             }
         } 
         catch (error) {
@@ -78,5 +78,3 @@ function Signup() {
         </>
     )
 }
-
-export default Signup
