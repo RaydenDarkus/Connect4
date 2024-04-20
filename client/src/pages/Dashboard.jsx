@@ -11,6 +11,7 @@ export default function Dashboard() {
     const { user, setUser } = useContext(UserContext)
     const [showRulesModal, setShowRulesModal] = useState(false)
     const [showDeleteModal, setShowDeleteModal] = useState(false)
+    const [showLogoutModal, setShowLogoutModal] = useState(false)
     const navigate = useNavigate()
 
     const handleLogout = async (e) => {
@@ -25,6 +26,14 @@ export default function Dashboard() {
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const handleShowLogoutModal = () => {
+        setShowLogoutModal(true)
+    }
+
+    const handleCloseLogoutModal = () => {
+        setShowLogoutModal(false)
     }
 
     const handleShowRulesModal = () => {
@@ -67,7 +76,7 @@ export default function Dashboard() {
                 </section>
                 <section className="actions-section">
                     <h2 className="actions-title">Actions</h2>
-                    <button className="logout-btn" onClick={handleLogout} title='Logout'>
+                    <button className="logout-btn" onClick={handleShowLogoutModal} title='Logout'>
                         Logout
                     </button>
                     <button className="logout-btn" onClick={handleShowDeleteModal} title='Delete Account'>
@@ -78,6 +87,22 @@ export default function Dashboard() {
                     </button>
                 </section>
             </main>
+
+            <div className={`modal ${showLogoutModal ? 'show' :''}`}>
+                <div className="modal-content">
+                    <span className="close-button" onClick={handleCloseLogoutModal}>
+                    &times;
+                    </span>
+                    <h2>Logout</h2>
+                    <div>
+                        Are you sure you want to Logout?
+                    </div>
+                    <div className="button-container">
+                        <button className="delete-btn" onClick={handleLogout} title='Confirm to Logout'> Logout </button>
+                        <button className="cancel-btn" onClick={handleCloseLogoutModal} title='Cancel'> Cancel </button>
+                    </div>
+                </div>
+            </div>
 
             <div className={`modal ${showDeleteModal ? 'show' :''}`}>
                 <div className="modal-content">

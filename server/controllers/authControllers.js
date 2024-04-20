@@ -13,29 +13,29 @@ const registerUser = async (req, res) => {
         const {username, email, password, cpassword} = req.body
         const usern = await User.findOne({username})
         if(usern) {
-            return res.json({ 
+            return res.status(409).json({ 
                 error: 'Username already exists'
             })
         }
         const useremail = await User.findOne({email})
         if(useremail) {
-            return res.json({ 
+            return res.status(409).json({ 
                 error: 'Email already exists'
             })
         }
         const passw = await User.findOne({password})
         if(passw) {
-            return res.json({ 
+            return res.status(409).json({ 
                 error: 'Password already exists'
             })
         }
         if(password.length < 6 || cpassword.length < 6) {
-            return res.json({
+            return res.status(400).json({
                 error: 'Password must be at least 6 characters long'
             })
         }
         if (password !== cpassword) {
-            return res.json({
+            return res.status(400).json({
                 error: 'Passwords do not match'
             })
         }
@@ -46,7 +46,7 @@ const registerUser = async (req, res) => {
         const specialCharRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
 
         if (!letterRegex.test(password) || !numberRegex.test(password) || !specialCharRegex.test(password)) {
-            return res.json({
+            return res.status(400).json({
                 error: 'Password must contain at least one letter, one number, and one special character'
             })
         }
@@ -65,6 +65,7 @@ const registerUser = async (req, res) => {
 
     catch (error) {
         console.log(error)
+        res.status(500).json({ error: 'Internal server error' })
     }
 }
 
@@ -74,7 +75,7 @@ const loginUser = async (req, res) => {
         const {username, password} = req.body
         const user = await User.findOne({username})
         if (!user) {
-            return res.json({
+            return res.status(404).json({
                 error: 'Invalid username or user not found'
             })
         }
@@ -91,11 +92,12 @@ const loginUser = async (req, res) => {
         } 
         else {
             // Password is incorrect
-            return res.json({ error: 'Invalid password' })
+            return res.status(401).json({ error: 'Invalid password' })
         }
     }
     catch (error) {
         console.log(error)
+        res.status(500).json({ error: 'Internal server error' })
     }
 }
 
@@ -107,11 +109,11 @@ const getProfile = (req, res) => {
             if (err) { 
                 throw err
             }
-            res.json(user)
+            res.status(200).json(user)
         })
     }
     else {
-        res.json(null)    
+        res.status(401).json(null)    
     }
 }
 
@@ -151,7 +153,7 @@ const forgotPassword = async (req, res) => {
     try {
         const user = await User.findOne({ username, email })
         if (!user) {
-            return res.json({ error: 'Username or email combination not found' })
+            return res.status(401).json({ error: 'Username or email combination not found' })
         }
 
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '5m'})
@@ -174,13 +176,15 @@ const forgotPassword = async (req, res) => {
         transporter.sendMail(mailOptions, function(error, info){
             if (error) {
               return res.json({ status: false, message: 'Email not sent: ' + error })
-            } else {
+            } 
+            else {
               return res.json({ status: true, message: 'Email sent: ' + info.response })
             }
         })
     } 
     catch (error) {
         console.log(error)
+        res.status(500).json({ error: 'Internal server error' })
     }
 }
 
@@ -190,13 +194,13 @@ const resetPassword = async (req, res) => {
     try {
 
         if(password.length < 6 || cpassword.length < 6) {
-            return res.json({
+            return res.status(400).json({
                 error: 'Password must be at least 6 characters long'
             })
         }
 
         if (password !== cpassword) {
-            return res.json({
+            return res.status(400).json({
                 error: 'Passwords do not match'
             })
         }
@@ -206,7 +210,7 @@ const resetPassword = async (req, res) => {
         const specialCharRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
 
         if (!letterRegex.test(password) || !numberRegex.test(password) || !specialCharRegex.test(password)) {
-            return res.json({
+            return res.status(400).json({
                 error: 'Password must contain at least one letter, one number, and one special character'
             })
         }
@@ -221,7 +225,7 @@ const resetPassword = async (req, res) => {
     }
     catch (error) {
         console.log(error)
-        return res.json({ error: 'Password reset failed' })
+        return res.status(500).json({ error: 'Password reset failed' })
     }
 }
 
