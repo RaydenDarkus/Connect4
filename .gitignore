@@ -5,6 +5,4 @@ client/src/assets
 client/public/fontawesome-free-6.5.2-web
 client/README.md
 client/package-lock.json
-client/package.json
 server/package-lock.json
-server/package.json
