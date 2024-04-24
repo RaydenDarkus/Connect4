@@ -2,7 +2,7 @@ import './dropzone.css'
 import { useEffect, useState } from 'react'
 import { size, rows, columns } from '../../constants/constants'
 import ActiveCoin from '../ActiveCoin'
-import Winner from '../Winner'
+import Winner from '../winner/Winner'
 
 export default function DropZone() {
 
@@ -28,9 +28,7 @@ export default function DropZone() {
     }
 
     const findWinner = () => {
-        const directions = [
-            [1, 0], [0, 1], [1, 1], [1, -1]
-        ]
+        const directions = [ [1, 0], [0, 1], [1, 1], [1, -1] ]
         for (const [dx, dy] of directions) {
             for (const drop of dropped) {
                 const { player, x, y } = drop

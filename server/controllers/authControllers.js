@@ -92,6 +92,7 @@ const loginUser = async (req, res) => {
         } 
         else {
             // Password is incorrect
+            console.log({ error: 'Invalid password' })
             return res.status(401).json({ error: 'Invalid password' })
         }
     }
@@ -113,7 +114,7 @@ const getProfile = (req, res) => {
         })
     }
     else {
-        res.status(401).json(null)    
+        res.json({message: 'No token found'})    
     }
 }
 

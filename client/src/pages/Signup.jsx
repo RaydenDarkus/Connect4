@@ -26,9 +26,8 @@ export default function Signup() {
                 username, email, password, cpassword
             })
 
-            if(data.error) {
-                return toast.error(data.error)
-            }
+            if(data.error)
+                toast.error(data.error)
             else {
                 setData({})
                 toast.success('User registered successfully')
@@ -37,6 +36,12 @@ export default function Signup() {
         } 
         catch (error) {
             console.log(error)
+            if (error.response && error.response.status === 409)
+                toast.error('Username, email or password already taken')
+            if (error.response && error.response.status === 400)
+                toast.error('Password requirements not met')
+            if (error.response && error.response.status === 500)
+                toast.error('Internal Server Error. Please try again later.')
         }
     }
 

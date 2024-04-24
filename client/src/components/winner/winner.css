@@ -1,0 +1,22 @@
+.winner-message {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+  
+.play-again-button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: 1px solid black;
+    box-shadow: 1px 1px 1px 1px black; 
+}
+  
+.play-again-button:hover {
+    background-color: #025206;
+    box-shadow: 1px 1px 1px 1px rgb(80, 18, 3); 
+}

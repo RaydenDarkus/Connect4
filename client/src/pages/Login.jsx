@@ -21,13 +21,10 @@ export default function Login() {
         e.preventDefault()
         const {username, password} = data
         try {
-            const {data} = await axios.post('/login', { 
-                username, password 
-            })
+            const {data} = await axios.post('/login', { username, password })
 
-            if (data.error) {
-                return toast.error(data.error)
-            }
+            if (data.error)
+                toast.error(data.error)
             else {
                 setData({})
                 toast.success('Login successful')
@@ -36,6 +33,12 @@ export default function Login() {
         } 
         catch (error) {
             console.log(error)
+            if (error.response && error.response.status === 404)
+                toast.error('Invalid username or user not found')
+            if (error.response && error.response.status === 401) 
+                toast.error('Invalid password')
+            if (error.response && error.response.status === 500)
+                toast.error('Internal Server Error. Please try again later.')
         }
     }
 
