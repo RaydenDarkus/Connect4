@@ -23,8 +23,9 @@ export default function Login() {
         try {
             const {data} = await axios.post('/login', { username, password })
 
-            if (data.error)
-                toast.error(data.error)
+            if (data.error){
+                return toast.error(data.error)
+            }
             else {
                 setData({})
                 toast.success('Login successful')

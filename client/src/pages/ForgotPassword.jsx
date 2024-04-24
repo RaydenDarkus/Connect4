@@ -30,6 +30,10 @@ export default function ForgotPassword() {
         } 
         catch (error) {
             console.log(error)
+            if (error.response && error.response.status === 401)
+                toast.error('User not found')
+            if (error.response && error.response.status === 500)
+                toast.error('Internal Server Error. Please try again later.')
         }
     }
 

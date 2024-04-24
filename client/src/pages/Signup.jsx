@@ -26,8 +26,9 @@ export default function Signup() {
                 username, email, password, cpassword
             })
 
-            if(data.error)
-                toast.error(data.error)
+            if(data.error) {
+                return toast.error(data.error)
+            }
             else {
                 setData({})
                 toast.success('User registered successfully')

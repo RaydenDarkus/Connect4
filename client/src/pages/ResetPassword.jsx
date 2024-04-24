@@ -38,6 +38,10 @@ export default function ResetPassword() {
         } 
         catch (error) {
             console.log(error)
+            if (error.response && error.response.status === 400)
+                toast.error('Password requirements not met')
+            if (error.response && error.response.status === 500)
+                toast.error('Internal Server Error. Please try again later.')
         }
     }
 
