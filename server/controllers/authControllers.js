@@ -83,7 +83,7 @@ const loginUser = async (req, res) => {
         const isPasswordValid = await verifyPassword(password, user.password, user.salt);
         if (isPasswordValid) {
             // Password is correct
-            jwt.sign({id: user._id, username: user.username}, process.env.JWT_SECRET, {}, (err, token) => {
+            jwt.sign({id: user._id, username: user.username}, process.env.JWT_SECRET, {expiresIn: '5h'}, (err, token) => {
                 if (err) {
                     throw err
                 }
