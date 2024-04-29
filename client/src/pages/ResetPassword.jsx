@@ -19,7 +19,7 @@ export default function ResetPassword() {
         togglePasswordVisibility(showPassword, setShowPassword)
     }
 
-    const forgotPassword = async (e) => {
+    const resetPassword = async (e) => {
         e.preventDefault()
         const {password, cpassword} = data
         try {
@@ -56,7 +56,12 @@ export default function ResetPassword() {
                 <Link to="/" title='Home' className="btn btn-primary home-link btn-hover-shadow align-self-start">
                     <FontAwesomeIcon icon={faHome} className="fa-home"/>
                 </Link>
-                <form onSubmit={forgotPassword}>
+                <form onSubmit={resetPassword} onKeyDown={(e) => { 
+                        if (e.key === 'Enter') {
+                            e.preventDefault(); // Prevent form submission
+                            resetPassword(e); // Call loginUser function when Enter is pressed
+                        }
+                    }}>
                     <h2 className="text-center"> Reset Password </h2>
                     {/* <div className="mb-2">
                         <label htmlFor="username" className='input-text'>Username</label>
