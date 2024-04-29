@@ -62,7 +62,13 @@ export default function Signup() {
                 <Link to="/" title='Home' className="btn btn-primary home-link btn-hover-shadow align-self-start">
                     <FontAwesomeIcon icon={faHome} className="fa-home"/>
                 </Link>
-                <form onSubmit={registerUser}>
+                <form onSubmit={registerUser} onKeyDown={(e) => { 
+                        if (e.key === 'Enter') {
+                            e.preventDefault(); // Prevent form submission
+                            registerUser(e); // Call loginUser function when Enter is pressed
+                        }
+                    }}>
+                        
                     <h2 className="text-center">Sign up</h2>
                     <div className="mb-2">
                         <label htmlFor="username" className='input-text'>Username</label>

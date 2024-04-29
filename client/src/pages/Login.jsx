@@ -56,7 +56,13 @@ export default function Login() {
                 <Link to="/" title='Home' className="btn btn-primary home-link btn-hover-shadow">
                     <FontAwesomeIcon icon={faHome} className="fa-home"/>
                 </Link>
-                <form onSubmit={loginUser}>
+                <form onSubmit={loginUser} onKeyDown={(e) => { 
+                        if (e.key === 'Enter') {
+                            e.preventDefault(); // Prevent form submission
+                            loginUser(e); // Call loginUser function when Enter is pressed
+                        }
+                    }}>
+                    
                     <h2 className="text-center">Sign in</h2>
                     <div className="mb-2">
                         <label htmlFor="username" className='input-text'>Username</label>
